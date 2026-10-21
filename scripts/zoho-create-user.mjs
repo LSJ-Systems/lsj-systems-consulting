@@ -93,6 +93,7 @@ async function createZohoMailUser({
   lastName,
   displayName,
   password,
+  phone,
 }) {
   const mailHost = `mail.zoho.${domainTLD}`;
 
@@ -135,6 +136,9 @@ async function createZohoMailUser({
     role: 'member',
     oneTimePassword: true,
   };
+  if (phone) {
+    payload.phoneNumber = phone;
+  }
 
   const createRes = await fetch(createUrl, {
     method: 'POST',
@@ -164,6 +168,7 @@ async function createZohoCrmUser({
   email,
   firstName,
   lastName,
+  phone,
   roleId,
   profileId,
 }) {
@@ -177,16 +182,19 @@ async function createZohoCrmUser({
     );
   }
 
+  const userRecord = {
+    first_name: firstName,
+    last_name: lastName,
+    email: email,
+    role: roleId,
+    profile: profileId,
+  };
+  if (phone) {
+    userRecord.phone = phone;
+  }
+
   const payload = {
-    users: [
-      {
-        first_name: firstName,
-        last_name: lastName,
-        email: email,
-        role: roleId,
-        profile: profileId,
-      },
-    ],
+    users: [userRecord],
   };
 
   const res = await fetch(crmUrl, {
@@ -219,10 +227,11 @@ Usage:
   node scripts/zoho-create-user.mjs [options]
 
 Options:
-  --email <email>            Primary user email (default: k.Komenan@lsj.systems)
-  --first-name <name>        First name (default: Kakou)
-  --last-name <name>         Last name (default: Komenan)
-  --display-name <name>      Display name (default: Kakou Komenan)
+  --email <email>            Primary user email (default: ryan.s.littleton@lsjsystems.com)
+  --first-name <name>        First name (default: Ryan)
+  --last-name <name>         Last name (default: Littleton)
+  --phone <phone>            Phone number (default: 202-913-5204)
+  --display-name <name>      Display name (default: Ryan Littleton)
   --password <password>      Initial temporary password (auto-generated if omitted)
   --service <mail|crm>       Zoho service target (default: mail)
   --zoid <zoid>              Zoho Organization ID for Mail (auto-fetched if omitted)
@@ -237,9 +246,10 @@ Options:
     process.exit(0);
   }
 
-  const email = args.email || process.env.NEW_USER_EMAIL || 'k.Komenan@lsj.systems';
-  const firstName = args['first-name'] || process.env.NEW_USER_FIRST_NAME || 'Kakou';
-  const lastName = args['last-name'] || process.env.NEW_USER_LAST_NAME || 'Komenan';
+  const email = args.email || process.env.USER_EMAIL || process.env.NEW_USER_EMAIL || 'ryan.s.littleton@lsjsystems.com';
+  const firstName = args['first-name'] || process.env.USER_FIRST_NAME || process.env.NEW_USER_FIRST_NAME || 'Ryan';
+  const lastName = args['last-name'] || process.env.USER_LAST_NAME || process.env.NEW_USER_LAST_NAME || 'Littleton';
+  const phone = args.phone || process.env.USER_PHONE || process.env.NEW_USER_PHONE || '202-913-5204';
   const displayName = args['display-name'] || `${firstName} ${lastName}`.trim();
   const password = args.password || process.env.NEW_USER_PASSWORD || generateSecurePassword();
 
@@ -256,6 +266,7 @@ Options:
   console.log(`Target Service : ${service.toUpperCase()}`);
   console.log(`User Email     : ${email}`);
   console.log(`First / Last   : ${firstName} ${lastName}`);
+  console.log(`Phone          : ${phone}`);
   console.log(`Accounts Domain: ${accountsDomain}`);
   console.log(`Domain Region  : .${domainTLD}`);
 
@@ -309,6 +320,7 @@ How to generate them:
       lastName,
       displayName,
       password,
+      phone,
     });
   } else if (service === 'crm') {
     result = await createZohoCrmUser({
@@ -317,6 +329,7 @@ How to generate them:
       email,
       firstName,
       lastName,
+      phone,
       roleId: args['role-id'] || process.env.ZOHO_CRM_ROLE_ID,
       profileId: args['profile-id'] || process.env.ZOHO_CRM_PROFILE_ID,
     });

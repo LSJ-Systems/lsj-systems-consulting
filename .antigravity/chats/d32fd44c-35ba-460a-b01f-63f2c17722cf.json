@@ -3,6 +3,55 @@
   "name": "I attached an image: images/photo-1792591522-1.jpg. See",
   "createdAt": "2026-10-21T14:44:57.964Z",
   "filename": "d32fd44c-35ba-460a-b01f-63f2c17722cf.json",
-  "geminiStarted": false,
-  "messages": []
+  "geminiStarted": true,
+  "messages": [
+    {
+      "id": "fbdbd1df-1b3a-42f3-920b-90aeb9b6fd04",
+      "role": "user",
+      "content": "I attached an image: images/photo-1792591522-1.jpg.\n\nSee",
+      "status": "cancelled",
+      "model": "gemini-3.8-flash-high",
+      "client_type": "gemini-bridge",
+      "parent_message_id": null,
+      "created_at": "2026-10-21T14:45:00.200Z",
+      "sender": "ios",
+      "is_cancelled": true
+    },
+    {
+      "id": "53ecbb52-ca87-49e4-a776-c5cfd26dcf6e",
+      "role": "user",
+      "content": "No not komenan",
+      "status": "cancelled",
+      "model": "gemini-3.8-flash-high",
+      "client_type": "gemini-bridge",
+      "parent_message_id": null,
+      "created_at": "2026-10-21T14:46:11.226Z",
+      "sender": "ios",
+      "is_cancelled": true
+    },
+    {
+      "id": "dfa0e648-7816-406f-ba07-f175c1c49eed",
+      "role": "user",
+      "content": "Only ryan.s.littleton@lsjsystems.com | 202-913-5204",
+      "status": "cancelled",
+      "model": "gemini-3.8-flash-high",
+      "client_type": "gemini-bridge",
+      "parent_message_id": null,
+      "created_at": "2026-10-21T14:46:16.934Z",
+      "sender": "ios",
+      "is_cancelled": true
+    },
+    {
+      "id": "477f9a2e-b6ae-431c-a139-ca21ea129a15",
+      "role": "user",
+      "content": "Only ryan.s.littleton@lsjsystems.com | 202-913-5204",
+      "status": "pending",
+      "model": "gemini-3.8-flash-high",
+      "client_type": "gemini-bridge",
+      "parent_message_id": null,
+      "created_at": "2026-10-21T14:47:06.863Z",
+      "sender": "ios",
+      "is_cancelled": false
+    }
+  ]
 }
