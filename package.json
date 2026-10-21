@@ -7,7 +7,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "zoho:create-user": "node scripts/zoho-create-user.mjs"
+    "zoho:create-user": "node scripts/zoho-create-user.mjs",
+    "zoho:mail": "node scripts/zoho-mail-admin.mjs"
   },
   "dependencies": {
     "astro": "^5.17.1"
