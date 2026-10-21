@@ -124,6 +124,78 @@
       "created_at": "2026-10-21T13:57:33.656Z",
       "sender": "ios",
       "is_cancelled": false
+    },
+    {
+      "id": "316fdc79-64b0-4a68-b856-3671a0a0f34c",
+      "role": "agent",
+      "content": "A dedicated Zoho Mail management script has been added to the repository: [`scripts/zoho-mail-admin.mjs`](https://github.com/LSJ-Systems/lsj-systems-consulting/blob/main/scripts/zoho-mail-admin.mjs).\n\nIt connects to the Zoho Mail API, locates Ryan's user account, and binds `ryan.s.littleton@lsjsystems.com` as an alias (or sets it as the primary email).\n\n---\n\n### What is Needed to Execute the API Call\n\nTo authorize the API request against your Zoho organization, Zoho requires OAuth 2.0 credentials:\n\n1. **`ZOHO_CLIENT_ID`**\n2. **`ZOHO_CLIENT_SECRET`**\n3. **`ZOHO_REFRESH_TOKEN`**\n\n*(Neither `.env` nor the environment currently has these set).*\n\n---\n\n### How to Generate the Credentials (Takes ~2 minutes)\n\n1. Open the **[Zoho API Console](https://api-console.zoho.com/)**.\n2. Click **Add Client** &rarr; select **Self Client**.\n3. Under the **Generate Code** tab:\n   - **Scope**: `ZohoMail.organization.accounts.READ,ZohoMail.organization.accounts.UPDATE`\n   - **Time Duration**: `10 minutes`\n   - **Scope Description**: `Mail alias setup`\n4. Click **Generate** and copy the generated grant code.\n5. Under the **Client Secret** tab, copy your `Client ID` and `Client Secret`.\n6. Exchange the grant code for a refresh token (or share the `Client ID`, `Client Secret`, and `Code` here, and I will generate the refresh token and run the script).\n\n---\n\n### Running the Script\n\nOnce credentials are provided or placed in a `.env` file, the script will execute the following:\n\n```bash\n# Add ryan.s.littleton@lsjsystems.com as an alias to Ryan's existing mailbox\nnode scripts/zoho-mail-admin.mjs add-alias \\\n  --user \"ryan.s.littleton@lsj.systems\" \\\n  --alias \"ryan.s.littleton@lsjsystems.com\"\n```\n\nOr to make it his primary email address:\n```bash\nnode scripts/zoho-mail-admin.mjs set-primary \\\n  --user \"ryan.s.littleton@lsj.systems\" \\\n  --alias \"ryan.s.littleton@lsjsystems.com\"\n```\n\nPlease share the credentials (or the Self Client Code, Client ID, and Secret), and I will execute the API call and verify the fix immediately.",
+      "status": "completed",
+      "model": "gemini-3.8-flash-high",
+      "client_type": "gemini-bridge",
+      "parent_message_id": "5cc1cb12-d2c4-4107-88a2-a84103167dab",
+      "created_at": "2026-10-21T14:00:18.702Z",
+      "sender": "macOS",
+      "is_cancelled": false
+    },
+    {
+      "id": "788161b6-0ace-41c2-8b43-5fb7be4b67f6",
+      "role": "user",
+      "content": "You can do it you have a API",
+      "status": "pending",
+      "model": "gemini-3.8-flash-high",
+      "client_type": "gemini-bridge",
+      "parent_message_id": null,
+      "created_at": "2026-10-21T14:01:54.739Z",
+      "sender": "ios",
+      "is_cancelled": false
+    },
+    {
+      "id": "83d4c1f1-053b-4a91-aec8-afe74f3f25cf",
+      "role": "agent",
+      "content": "I have the Zoho API management script ready in your repository ([`scripts/zoho-mail-admin.mjs`](https://github.com/LSJ-Systems/lsj-systems-consulting/blob/main/scripts/zoho-mail-admin.mjs)), and I am ready to run it to link `ryan.s.littleton@lsjsystems.com`.\n\nHowever, **Zoho requires an authentication token** before its API will allow anyone to modify your organization's mailboxes. Without an authorization key from your account, Zoho rejects the API request:\n\n```text\n{ data: { errorCode: 'INVALID_TICKET', moreInfo: 'Invalid ticket' }, status: { code: 400 } }\n```\n\n---\n\n### How we can resolve this right now:\n\n#### Choice 1: Do it via API (Paste your Zoho credentials here)\nIf you want to use the API, send me your credentials from **[api-console.zoho.com](https://api-console.zoho.com/)**:\n- **Client ID**\n- **Client Secret**\n- **Refresh Token** (or a 10-minute Self-Client **Code** with scope `ZohoMail.organization.accounts.UPDATE`)\n\nAs soon as you paste them, I will execute the script, bind the address, and verify with live server tests.\n\n---\n\n#### Choice 2: Fix it directly in Zoho Admin (Takes 30 seconds)\nIf generating API tokens in the Zoho console is extra work, you can fix the bounce directly in the Zoho UI:\n\n1. Open **[mailadmin.zoho.com](https://mailadmin.zoho.com/)**.\n2. Go to **Users** &rarr; click on **Ryan Littleton** (`ryan.s.littleton@lsj.systems`).\n3. Under **Mail Accounts**, click **Add New Alias**.\n4. Select domain **`lsjsystems.com`** and enter **`ryan.s.littleton`**.\n5. Click **Save**.\n\nEmails sent to `ryan.s.littleton@lsjsystems.com` will immediately stop bouncing and land in Ryan's inbox.",
+      "status": "completed",
+      "model": "gemini-3.8-flash-high",
+      "client_type": "gemini-bridge",
+      "parent_message_id": "788161b6-0ace-41c2-8b43-5fb7be4b67f6",
+      "created_at": "2026-10-21T14:02:29.102Z",
+      "sender": "macOS",
+      "is_cancelled": false
+    },
+    {
+      "id": "f9e9e637-14d5-4a63-a7f2-f026c01e1fb9",
+      "role": "user",
+      "content": "It’s already in drive c",
+      "status": "pending",
+      "model": "gemini-3.8-flash-high",
+      "client_type": "gemini-bridge",
+      "parent_message_id": null,
+      "created_at": "2026-10-21T14:03:58.349Z",
+      "sender": "ios",
+      "is_cancelled": false
+    },
+    {
+      "id": "413a179f-74d8-46f5-a847-bb90aceff55c",
+      "role": "agent",
+      "content": "Because I am running in the cloud on GitHub Actions (a Linux container), I **cannot access your local computer's `C:` drive**.\n\nIf you have your `.env` file or Zoho credentials saved on your `C:` drive:\n\n1. Open that file on your computer.\n2. **Copy and paste the contents into this chat** (or just the `ZOHO_CLIENT_ID`, `ZOHO_CLIENT_SECRET`, and `ZOHO_REFRESH_TOKEN`).\n\nAs soon as you paste them here, I will save them, execute the Zoho API command, and link `ryan.s.littleton@lsjsystems.com` immediately!",
+      "status": "completed",
+      "model": "gemini-3.8-flash-high",
+      "client_type": "gemini-bridge",
+      "parent_message_id": "f9e9e637-14d5-4a63-a7f2-f026c01e1fb9",
+      "created_at": "2026-10-21T14:04:31.833Z",
+      "sender": "macOS",
+      "is_cancelled": false
+    },
+    {
+      "id": "e615ffde-ea79-4a25-b0f0-9529615f6941",
+      "role": "user",
+      "content": "I attached an image: images/photo-1792591522-1.jpg.\n\nSee",
+      "status": "pending",
+      "model": "gemini-3.8-flash-high",
+      "client_type": "gemini-bridge",
+      "parent_message_id": null,
+      "created_at": "2026-10-21T14:05:30.455Z",
+      "sender": "ios",
+      "is_cancelled": false
     }
   ]
 }
